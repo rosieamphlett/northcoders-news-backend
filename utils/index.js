@@ -1,29 +1,51 @@
-const formatArticleData = (topicRef, userRef, articleData) => {
-    return articleData.map(doc => {
-        return {
-            ...doc,
-            belongs_to: topicRef[doc.topic],
-            created_by: userRef[doc.created_by]
-        };
+const formatTopicData = topicData => {
+    return topicData.map(topicDatum => {
+      return {
+        ...topicDatum
+      };
     });
-};
+  };
   
-const formatCommentData = (articleRef, userRef, commentData) => {
-    return commentData.map(doc => {
-        return {
-            ...doc,
-            belongs_to: articleRef[doc.belongs_to],
-            created_by: userRef[doc.created_by]
-        };
+  const formatUserData = userData => {
+    return userData.map(userDatum => {
+      return {
+        ...userDatum
+      };
     });
-};
+  };
   
-//creates ref object for article, comments and topic references
-const createRefObject = (mongoIdDocs, objRefKey) => {
-    return mongoIdDocs.reduce((refObj, index) => {
-        refObj[index[objRefKey]] = index._id;
-        return refObj;
-    }, {});
-};
+  const formatArticleData = (articleData, userDocs) => {
+    return articleData.map(articleDatum => {
+      const created_by = userDocs.find(
+        user => user.username === articleDatum.created_by
+      )._id;
+      return {
+        ...articleDatum,
+        belongs_to: articleDatum.topic,
+        created_by
+      };
+    });
+  };
   
-module.exports = { createRefObject, formatArticleData, formatCommentData };
+  const formatCommentData = (commentData, userDocs, articleDocs) => {
+    return commentData.map(commentDatum => {
+      const created_by = userDocs.find(
+        user => user.username === commentDatum.created_by
+      )._id;
+      const belongs_to = articleDocs.find(
+        article => article.title === commentDatum.belongs_to
+      )._id;
+      return {
+        ...commentDatum,
+        belongs_to,
+        created_by
+      };
+    });
+  };
+  
+  module.exports = {
+    formatArticleData,
+    formatTopicData,
+    formatUserData,
+    formatCommentData
+  };

@@ -1,35 +1,39 @@
-const mongoose = require("mongoose");
 const { Topic, Article } = require("../models");
 
 const getAllTopics = (req, res, next) => {
-    return Topic.find().then(topics => {
-        res.status(200).send({ topics });
-    })
+  Topic.find()
+    .then(topics => { res.status(200).send({ topics }) })
     .catch(next);
 };
 
-const getArticlesByTopic = (req, res, next) => {
-    Article.find({ belongs_to: req.params.topic }).populate("belongs_to", "slug -_id")
+const getArticlesByTopicSlug = (req, res, next) => {
+  const { topic_slug } = req.params;
+  Article.find({ belongs_to: topic_slug })
     .then(articles => {
-        articles.length === 0
-        ? next({
-            status: 404,
-            error_message: "Article cannot be found, it may have been moved or deleted"
-        })
-        : res.status(200).send({ articles });
+      (articles.length === 0) ? next({ status: 404, msg: "404: topic not found, woops" }) : 
+      res.status(200).send({ articles });
     })
-    .catch(next);
+  .catch(err => next(err));
 };
 
-
-const addArticleToTopic = (req, res, next) => {
-    const newArticle = new Article(req.body);
-    newArticle.belongs_to = req.params.topic;
-    Article.create(newArticle)
-    .then(() => {
-        res.status(201).send({ msg: "You've added a new article!", newArticle });
+const addArticleByTopicSlug = (req, res, next) => {
+  const { topic_slug } = req.params;
+  Article.create({
+    ... req.body,
+    belongs_to: topic_slug,
+  })
+    .then(article => {
+      res.status(201).send({ msg: "you've successfully added an article!", article });
     })
-    .catch(next);
+    .catch(err => {
+      if (err.name === 'ValidationError') err.status = 400;
+      else if (err.status === 404) err.message = 'User not found :(';
+      next(err);
+  });
 };
 
-module.exports = { getAllTopics, getArticlesByTopic, addArticleToTopic }
+module.exports = {
+  getAllTopics,
+  getArticlesByTopicSlug,
+  addArticleByTopicSlug
+};

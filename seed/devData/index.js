@@ -1,6 +1,6 @@
 module.exports = {
-    topics: require("./topics.json"),
-    users: require("./users.json"),
-    articles: require("./articles.json"),
-    comments: require("./comments.json")
+    articleData: require("./articles"),
+    commentData: require("./comments"),
+    topicData: require("./topics"),
+    userData: require("./users")
 };

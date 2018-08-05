@@ -8,7 +8,7 @@ mongoose
   .then(() => {
     console.log(`Seeding to ${DB_URL}`);
   })
-  .then(() => seedDB(data.topics, data.users, data.articles, data.comments))
+  .then(() => seedDB(data))
   .then(() => {
     console.log("Seeding woohoo");
   })

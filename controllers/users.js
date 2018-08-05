@@ -1,8 +1,13 @@
-const mongoose = require("mongoose");
-const { Topic, Article, Comment }= require("../models");
+const { User } = require('../models');
 
-const getUserProfileData = (req, res, next) => {
+const getUserByUsername = (req, res, next) => {
+    const { username } = req.params;
+    User.findOne({ username })
+    .then(user => {
+        if (user !== null) res.status(200).send({ user });
+        else throw {status: 404, message: 'User not found'};
+    })
+    .catch(err => next(err));
+};
 
-}
-
-module.exports = { getUserProfileData } ;
+module.exports = { getUserByUsername };
