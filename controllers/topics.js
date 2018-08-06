@@ -2,38 +2,39 @@ const { Topic, Article } = require("../models");
 
 const getAllTopics = (req, res, next) => {
   Topic.find()
-    .then(topics => { res.status(200).send({ topics }) })
+    .then(topics => {
+      res.status(200).send({ topics });
+    })
     .catch(next);
 };
 
-const getArticlesByTopicSlug = (req, res, next) => {
+const getArticlesByTopic = (req, res, next) => {
   const { topic_slug } = req.params;
   Article.find({ belongs_to: topic_slug })
     .then(articles => {
-      (articles.length === 0) ? next({ status: 404, msg: "404: topic not found, woops" }) : 
-      res.status(200).send({ articles });
+      if (articles.length === 0) {
+        next({ status: 400, msg: "400: Topic not found" });
+      } else res.status(200).send({ articles });
     })
-  .catch(err => next(err));
+    .catch(next);
 };
 
-const addArticleByTopicSlug = (req, res, next) => {
+const addArticleByTopic = (req, res, next) => {
   const { topic_slug } = req.params;
   Article.create({
-    ... req.body,
+    title: req.body.title,
+    body: req.body.body,
     belongs_to: topic_slug,
+    created_by: req.body.created_by
   })
     .then(article => {
-      res.status(201).send({ msg: "you've successfully added an article!", article });
+      res.status(201).send({ article, msg: "you have created a new article yay" });
     })
-    .catch(err => {
-      if (err.name === 'ValidationError') err.status = 400;
-      else if (err.status === 404) err.message = 'User not found :(';
-      next(err);
-  });
+    .catch(next);
 };
 
 module.exports = {
   getAllTopics,
-  getArticlesByTopicSlug,
-  addArticleByTopicSlug
+  getArticlesByTopic,
+  addArticleByTopic
 };

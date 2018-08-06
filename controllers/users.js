@@ -1,13 +1,12 @@
-const { User } = require('../models');
+const { User } = require("../models");
 
 const getUserByUsername = (req, res, next) => {
-    const { username } = req.params;
-    User.findOne({ username })
+  const { username } = req.params;
+  User.find({ username: username })
     .then(user => {
-        if (user !== null) res.status(200).send({ user });
-        else throw {status: 404, message: 'User not found'};
+      user.length !== 0 ? res.status(200).send({ user }) : next({ status: 404, msg: "404: User not found" });
     })
-    .catch(err => next(err));
+    .catch(next);
 };
 
 module.exports = { getUserByUsername };

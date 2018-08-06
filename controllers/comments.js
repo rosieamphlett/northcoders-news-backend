@@ -1,35 +1,38 @@
 const { Comment } = require("../models");
 
-const commentVoteUpVoteDown = (req, res, next) => {
-//   const voteComment = (req, res, next) => {
-//     const { comment_id } = req.params;
-//     let vote = 0;
-//     if (req.query.vote === 'up') vote = +1;
-//     else if (req.query.vote === 'down') vote = -1;
-//     Comment.findByIdAndUpdate(comment_id, { $inc: { votes: vote }}, { new: true })
-//     .then(comment => {
-//         if (comment) res.status(200).send({ comment })
-//         else throw {status: 404};
-//     })
-//     .catch(err => {
-//         if (err.name === 'CastError') err.status = 400;
-//         else if (err.status === 404) err.message = 'Comment not found';
-//         next(err);
-//     });
-//   }
+const getAllComments = (req, res, next) => {
+  Comment.find()
+    .then(comments => {
+      res.status(200).send({ comments });
+    })
+    .catch(next);
+};
+
+const putCommentById = (req, res, next) => {
+  const { comment_id } = req.params;
+  const { vote } = req.query;
+  let num = 0;
+  if (vote === "up") num = 1;
+  if (vote === "down") num = -1;
+
+  Comment.findByIdAndUpdate(comment_id, { $inc: { votes: num } }, { new: true })
+    .then(comment => {
+      res.status(200).send({ comment, msg: 'thanks for your vote!' });
+    })
+    .catch(next);
 };
 
 const deleteCommentById = (req, res, next) => {
-    const { comment_id } = req.params;
-    Comment.findByIdAndDelete(comment_id)
-      .then(comment => {
-        res.status(200).send({ msg: "comment successfully deleted" });
-      })
-      .catch(next);
-  };
-  
+  const { comment_id } = req.params;
+  Comment.findByIdAndRemove(comment_id)
+    .then(comment => {
+      res.status(200).send({ comment, msg: "your comment has been deleted!" });
+    })
+    .catch(next);
+};
 
 module.exports = {
-  commentVoteUpVoteDown,
+  getAllComments,
+  putCommentById,
   deleteCommentById
 };

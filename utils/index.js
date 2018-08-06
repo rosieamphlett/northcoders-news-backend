@@ -1,42 +1,42 @@
 const formatTopicData = topicData => {
-    return topicData.map(topicDatum => {
+    return topicData.map(topic => {
       return {
-        ...topicDatum
+        ...topic
       };
     });
   };
   
   const formatUserData = userData => {
-    return userData.map(userDatum => {
+    return userData.map(user => {
       return {
-        ...userDatum
+        ...user
       };
     });
   };
   
   const formatArticleData = (articleData, userDocs) => {
-    return articleData.map(articleDatum => {
+    return articleData.map(article => {
       const created_by = userDocs.find(
-        user => user.username === articleDatum.created_by
+        user => user.username === article.created_by
       )._id;
       return {
-        ...articleDatum,
-        belongs_to: articleDatum.topic,
+        ...article,
+        belongs_to: article.topic,
         created_by
       };
     });
   };
   
   const formatCommentData = (commentData, userDocs, articleDocs) => {
-    return commentData.map(commentDatum => {
+    return commentData.map(comment => {
       const created_by = userDocs.find(
-        user => user.username === commentDatum.created_by
+        user => user.username === comment.created_by
       )._id;
       const belongs_to = articleDocs.find(
-        article => article.title === commentDatum.belongs_to
+        article => article.title === comment.belongs_to
       )._id;
       return {
-        ...commentDatum,
+        ...comment,
         belongs_to,
         created_by
       };

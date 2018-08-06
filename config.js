@@ -1,14 +1,15 @@
+process.env.NODE_ENV = process.env.NODE_ENV || 'dev'
+
 const config = {
-    dev: {
-      DB_URL: 'mongodb://localhost:27017/northcoders_news',
-      dataPath:'./devData'
-    },
-    test: {
-      DB_URL: 'mongodb://localhost:27017/northcoders_news_test',
-      dataPath:'./testData'
-    }
+  test: {
+    DB_URL: 'mongodb://localhost:27017/nc_news'
+  },
+  dev: {
+    DB_URL: 'mongodb://localhost:27017/nc_news_test'
+  },
+  production: {
+    DB_URL: 'mongodb://rosieamphlett:dolfairy09@ds211592.mlab.com:11592/the-best-nc-news'
   }
-  
-const NODE_ENV = process.env.NODE_ENV || 'dev';
-  
-module.exports = config[NODE_ENV];
+}
+
+module.exports = config[process.env.NODE_ENV];
