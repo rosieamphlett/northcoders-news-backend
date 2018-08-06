@@ -82,7 +82,7 @@ Below is a list of all available endpoints. You can test run these either using 
 
 The following link is the main API page of the application:
 
-//link to heroku app
+https://the-best-nc-news.herokuapp.com/api/
 
 MongoDB hosted on Mlabs
 
