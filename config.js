@@ -8,7 +8,7 @@ const config = {
     DB_URL: 'mongodb://localhost:27017/nc_news_test'
   },
   production: {
-    DB_URL: 'mongodb://rosieamphlett:dolfairy09@ds211592.mlab.com:11592/the-best-nc-news'
+    DB_URL: 'mongodb://@ds211592.mlab.com:11592/the-best-nc-news'
   }
 }
 
