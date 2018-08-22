@@ -6,15 +6,15 @@ const formatTopicData = topicData => {
     });
   };
   
-  const formatUserData = userData => {
-    return userData.map(user => {
-      return {
+const formatUserData = userData => {
+  return userData.map(user => {
+    return {
         ...user
       };
     });
-  };
+};
   
-  const formatArticleData = (articleData, userDocs) => {
+const formatArticleData = (articleData, userDocs) => {
     return articleData.map(article => {
       const created_by = userDocs.find(
         user => user.username === article.created_by
@@ -25,9 +25,9 @@ const formatTopicData = topicData => {
         created_by
       };
     });
-  };
+};
   
-  const formatCommentData = (commentData, userDocs, articleDocs) => {
+const formatCommentData = (commentData, userDocs, articleDocs) => {
     return commentData.map(comment => {
       const created_by = userDocs.find(
         user => user.username === comment.created_by
@@ -41,11 +41,11 @@ const formatTopicData = topicData => {
         created_by
       };
     });
-  };
+};
   
-  module.exports = {
+module.exports = {
     formatArticleData,
     formatTopicData,
     formatUserData,
     formatCommentData
-  };
+};
