@@ -6,11 +6,10 @@ const DB_URL = process.env.DB_URL || require("./config/config2").DB_URL;
 const apiRouter = require("./routes/api");
 const cors = require('cors')
 
+app.use(cors())
 app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use("/api", apiRouter);
-
-app.use(cors())
 
 app.use((err, req, res, next) => {
   if (err.status === 400)
