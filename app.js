@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const DB_URL = process.env.DB_URL || require("./config/config2").DB_URL;
 const apiRouter = require("./routes/api");
-const cors = require ('cors')
+const cors = require('cors')
 
 app.use(bodyParser.json());
 app.use(express.static("public"));
