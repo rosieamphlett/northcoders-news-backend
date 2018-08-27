@@ -3,7 +3,9 @@ const { User } = require("../models");
 const getAllUsers = (req, res, next) => {
   User.find()
     .then(users => {
-      res.status(200).send({ users });
+      users.length !== 0 ?
+      res.status(200).send({ users })
+      : next({ status: 400, msg: "No Users" });
     })
     .catch(next);
 };

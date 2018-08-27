@@ -3,7 +3,9 @@ const { Comment } = require("../models");
 const getAllComments = (req, res, next) => {
   Comment.find()
     .then(comments => {
-      res.status(200).send({ comments });
+      comments.length !== 0 ?
+      res.status(200).send({ comments })
+      : next({ status: 400, msg: "No comments yet!" });
     })
     .catch(next);
 };
