@@ -10,4 +10,4 @@ const ArticleSchema = new Schema({
   created_by: { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true }
 });
 
-module.exports = mongoose.model('articles', ArticleSchema);
+module.exports = mongoose.model('articles', ArticleSchema)

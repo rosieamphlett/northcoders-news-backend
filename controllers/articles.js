@@ -5,21 +5,8 @@ const getAllArticles = (req, res, next) => {
     .then(articles => {
       res.status(200).send({ articles });
     })
-    .catch(next);
+    .catch(next)
 };
-
-/* Article.find().populate('created_by').then(articles => {
-  let promiseArticles = articles.map(article => {
-      return Comment.countDocuments({ belongs_to: `${article._id}`})
-              .then(commentCount => {
-                  return { ...article.toObject(), comments: commentCount}
-              })
-  })
-  return Promise.all(promiseArticles)
-})
-.then(articles => res.send({ articles }))
-.catch(next) */
-
 
 const getArticleById = (req, res, next) => {
   const { article_id } = req.params;

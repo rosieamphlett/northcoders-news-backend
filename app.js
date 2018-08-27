@@ -9,7 +9,7 @@ const cors = require('cors')
 app.use(cors())
 app.use(bodyParser.json());
 app.use(express.static("public"));
-app.use("/api", apiRouter);
+app.use("/api", apiRouter)
 
 app.use((err, req, res, next) => {
   if (err.status === 400)

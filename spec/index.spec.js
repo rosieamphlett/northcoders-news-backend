@@ -4,7 +4,7 @@ const seedDb = require("../seed/seed");
 const data = require("../seed/testData");
 const { expect } = require("chai");
 const request = require("supertest")(app);
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
 
 describe("/api", () => {
   let articleDocs,

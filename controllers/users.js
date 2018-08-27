@@ -6,7 +6,7 @@ const getUserByUsername = (req, res, next) => {
     .then(user => {
       user.length !== 0 ? res.status(200).send({ user }) : next({ status: 404, msg: "404: User not found" });
     })
-    .catch(next);
+    .catch(next)
 };
 
 module.exports = { getUserByUsername };

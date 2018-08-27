@@ -11,4 +11,4 @@ topicsRouter
   .get(getArticlesByTopic)
   .post(addArticleByTopic);
 
-module.exports = topicsRouter;
+module.exports = topicsRouter

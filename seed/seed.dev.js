@@ -12,4 +12,4 @@ mongoose
   .then(() => {
     console.log("Seeding woohoo");
   })
-  .then(() => mongoose.disconnect());
+  .then(() => mongoose.disconnect())

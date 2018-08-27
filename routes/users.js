@@ -3,4 +3,4 @@ const { getUserByUsername } = require("../controllers/users");
 
 usersRouter.route("/:username").get(getUserByUsername);
 
-module.exports = usersRouter;
+module.exports = usersRouter

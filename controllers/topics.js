@@ -31,7 +31,7 @@ const addArticleByTopic = (req, res, next) => {
       res.status(201).send({ article, msg: "you have created a new article yay" });
     })
     .catch(next);
-};
+}
 
 module.exports = {
   getAllTopics,

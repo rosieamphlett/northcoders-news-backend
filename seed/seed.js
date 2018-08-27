@@ -5,7 +5,7 @@ const {
   formatCommentData,
   formatTopicData,
   formatUserData
-} = require("../utils");
+} = require("../utils")
 
 const seedDb = ({ articleData, topicData, userData, commentData }) => {
   return mongoose.connection

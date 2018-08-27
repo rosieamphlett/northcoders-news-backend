@@ -12,7 +12,7 @@ articlesRouter.route("/").get(getAllArticles);
 articlesRouter
   .route("/:article_id")
   .get(getArticleById)
-  .put(votesArticleById);
+  .put(votesArticleById)
 
 articlesRouter
   .route("/:article_id/comments")

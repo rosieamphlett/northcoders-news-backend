@@ -25,7 +25,7 @@ const formatArticleData = (articleData, userDocs) => {
         created_by
       };
     });
-};
+}
   
 const formatCommentData = (commentData, userDocs, articleDocs) => {
     return commentData.map(comment => {
