@@ -20,7 +20,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  res.status(500).send("Internal Server Error");
+  res.status(500).send({msg:"Internal Server Error", err: err});
 });
 
 mongoose
