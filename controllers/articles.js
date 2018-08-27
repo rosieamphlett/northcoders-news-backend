@@ -1,4 +1,5 @@
 const { Article, Comment } = require("../models");
+const mongoose = require('mongoose')
 
 const getAllArticles = (req, res, next) => {
   Article.find().populate('created_by')
