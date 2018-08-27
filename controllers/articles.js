@@ -30,6 +30,8 @@ const getCommentsByArticleId = (req, res, next) => {
     .catch(next);
 };
 
+// why does populate never work
+
 const postCommentByArticleId = (req, res, next) => {
   const { article_id } = req.params;
   Comment.create({
