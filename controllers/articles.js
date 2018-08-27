@@ -1,7 +1,7 @@
 const { Article, Comment } = require("../models");
 
 const getAllArticles = (req, res, next) => {
-  Article.find()
+  Article.find().populate('created_by')
     .then(articles => {
       res.status(200).send({ articles });
     })
@@ -10,7 +10,7 @@ const getAllArticles = (req, res, next) => {
 
 const getArticleById = (req, res, next) => {
   const { article_id } = req.params;
-  Article.find({ _id: article_id })
+  Article.find({ _id: article_id }).populate('created_by')
     .then(article => {
       article.length !== 0
         ? res.status(200).send({ article })
@@ -21,7 +21,7 @@ const getArticleById = (req, res, next) => {
 
 const getCommentsByArticleId = (req, res, next) => {
   const { article_id } = req.params;
-  Comment.find({ belongs_to: article_id })
+  Comment.find({ belongs_to: article_id }).populate('created_by')
     .then(comment => {
       comment !== null
         ? res.status(200).send({ comment })
