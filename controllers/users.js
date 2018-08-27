@@ -1,5 +1,13 @@
 const { User } = require("../models");
 
+const getAllUsers = (req, res, next) => {
+  User.find()
+    .then(users => {
+      res.status(200).send({ users });
+    })
+    .catch(next);
+};
+
 const getUserByUsername = (req, res, next) => {
   const { username } = req.params;
   User.find({ username: username })
@@ -9,4 +17,4 @@ const getUserByUsername = (req, res, next) => {
     .catch(next)
 };
 
-module.exports = { getUserByUsername };
+module.exports = { getAllUsers, getUserByUsername };
